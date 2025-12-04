@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | CYCHRIS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="img/logo.png" alt="CYCHRIS"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <h1 style="display:none;margin:0;">Admin Panel</h1>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="bikes.html">View Site</a>
+        <a href="#" id="logoutLink">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-dashboard container">
+    <section class="admin-hero-card">
+      <div>
+        <p class="eyebrow-text">CYCHRIS Control Center</p>
+        <h1>Admin Dashboard</h1>
+        <p>Monitor rentals, verify riders, and publish curated biking routes in one view.</p>
+      </div>
+      <div class="admin-hero-meta">
+        <span class="admin-greeting" id="adminGreeting">Welcome back!</span>
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn btn-outline" id="adminCleanupBtn" type="button" title="Clean up old data to free storage">🧹 Clean Storage</button>
+          <button class="btn btn-outline" id="adminRefreshBtn" type="button">Refresh data</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-stats-grid">
+      <article class="admin-stat-card">
+        <div class="stat-icon">👥</div>
+        <div>
+          <p>Total Users</p>
+          <h3 id="statTotalUsers">0</h3>
+          <small id="statPendingUsers">Pending approvals: 0</small>
+        </div>
+      </article>
+      <article class="admin-stat-card">
+        <div class="stat-icon">📝</div>
+        <div>
+          <p>Rental Requests</p>
+          <h3 id="statTotalRentals">0</h3>
+          <small>Pending: <span id="statPendingRentalsMini">0</span></small>
+        </div>
+      </article>
+      <article class="admin-stat-card">
+        <div class="stat-icon">🚴‍♂️</div>
+        <div>
+          <p>Listed Bikes</p>
+          <h3 id="statTotalBikes">0</h3>
+          <small>Live on marketplace</small>
+        </div>
+      </article>
+      <article class="admin-stat-card">
+        <div class="stat-icon">🗺️</div>
+        <div>
+          <p>Verified Routes</p>
+          <h3 id="statTotalRoutes">0</h3>
+          <small id="statTotalRoutesText">0 routes live</small>
+        </div>
+      </article>
+    </section>
+
+    <section class="admin-section analytics-section">
+      <div class="admin-section-head">
+        <div>
+          <p class="eyebrow-text">Analytics</p>
+          <h2>Insightful Reports</h2>
+          <p class="section-meta">Track the top-performing bikes, categories, and routes.</p>
+        </div>
+      </div>
+      <div id="analyticsCards" class="analytics-grid"></div>
+    </section>
+
+    <section class="admin-section">
+      <div class="admin-section-card" id="rentalsCard">
+        <div class="admin-card-icon">📋</div>
+        <div class="admin-card-content">
+          <p class="eyebrow-text">All Rentals</p>
+          <h2>Rental Pipeline</h2>
+          <p class="section-meta">Track every booking from pending requests to completed rides.</p>
+          <div class="admin-card-stats">
+            <span class="status-pill pill-pending">Pending <strong id="statPendingRentals">0</strong></span>
+            <span class="status-pill pill-approved">Approved <strong id="statApprovedRentals">0</strong></span>
+          </div>
+        </div>
+        <div class="admin-card-arrow">→</div>
+      </div>
+    </section>
+
+    <section class="admin-section">
+      <div class="admin-section-card" id="usersCard">
+        <div class="admin-card-icon">👥</div>
+        <div class="admin-card-content">
+          <p class="eyebrow-text">All Users</p>
+          <h2>Community Directory</h2>
+          <p class="section-meta">Approve riders, promote trusted owners, and keep the marketplace safe.</p>
+          <div class="admin-card-stats">
+            <span class="status-pill pill-approved">Approved</span>
+            <span class="status-pill pill-pending">Pending</span>
+            <span class="status-pill pill-rejected">Rejected</span>
+          </div>
+        </div>
+        <div class="admin-card-arrow">→</div>
+      </div>
+    </section>
+
+    <section class="admin-section routes-section">
+      <div class="admin-section-head">
+        <div>
+          <p class="eyebrow-text">Routes Management</p>
+          <h2>Verified Cycling Routes</h2>
+          <p class="section-meta">Publish safe paths and keep public listings accurate.</p>
+        </div>
+      </div>
+      <div class="routes-management">
+        <div class="route-form-card glass-card">
+          <h3>Add Route</h3>
+          <form id="addRouteForm" class="routes-form">
+            <div class="form-grid two-col">
+              <input type="text" id="routeName" placeholder="Route Name" required>
+              <select id="routeType" required>
+                <option value="">Select Route Type</option>
+                <option value="Road">Road</option>
+                <option value="XC">XC</option>
+                <option value="Trail">Trail</option>
+                <option value="City Loop">City Loop</option>
+                <option value="Leisure">Leisure</option>
+              </select>
+            </div>
+            <div class="form-grid two-col">
+              <input type="text" id="routeStart" placeholder="Start Location" required>
+              <input type="text" id="routeEnd" placeholder="End Location" required>
+            </div>
+            <div class="form-grid two-col">
+              <input type="text" id="routeDistance" placeholder="Estimated Distance (e.g., 25 km)" required>
+              <input type="text" id="routeTime" placeholder="Estimated Time (e.g., 1h 45m)" required>
+            </div>
+            <textarea id="routeDescription" placeholder="Short description" rows="3" required></textarea>
+            <textarea id="routeMapLink" placeholder="Google Maps embed snippet (optional)" rows="3"></textarea>
+            <small class="form-hint">Tip: Share &gt; Embed a map &gt; copy the embed URL.</small>
+            <label class="file-input-label">Route Photo (optional)
+              <input type="file" id="routePhoto" accept="image/*">
+            </label>
+            <button type="submit" class="btn full-width">Publish Route</button>
+          </form>
+        </div>
+        <div class="route-list-panel">
+          <div class="route-list-head">
+            <h3>Published Routes</h3>
+            <p id="statTotalRoutesList">0 routes live</p>
+          </div>
+          <div id="adminRoutes" class="admin-card-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="analyticsModal" class="modal" style="display:none;">
+    <div class="modal-content analytics-modal-content">
+      <span id="analyticsModalClose" class="modal-close">&times;</span>
+      <div id="analyticsModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Rentals Modal -->
+  <div id="rentalsModal" class="modal" style="display:none;">
+    <div class="modal-content admin-content-modal">
+      <span id="rentalsModalClose" class="modal-close">&times;</span>
+      <div class="admin-modal-header">
+        <div>
+          <p class="eyebrow-text">All Rentals</p>
+          <h2>Rental Pipeline</h2>
+          <p class="section-meta">Track every booking from pending requests to completed rides.</p>
+        </div>
+        <div class="section-pills">
+          <span class="status-pill pill-pending">Pending <strong id="statPendingRentalsModal">0</strong></span>
+          <span class="status-pill pill-approved">Approved <strong id="statApprovedRentalsModal">0</strong></span>
+        </div>
+      </div>
+      <div id="adminRentals" class="admin-card-grid"></div>
+    </div>
+  </div>
+
+  <!-- Users Modal -->
+  <div id="usersModal" class="modal" style="display:none;">
+    <div class="modal-content admin-content-modal">
+      <span id="usersModalClose" class="modal-close">&times;</span>
+      <div class="admin-modal-header">
+        <div>
+          <p class="eyebrow-text">All Users</p>
+          <h2>Community Directory</h2>
+          <p class="section-meta">Approve riders, promote trusted owners, and keep the marketplace safe.</p>
+        </div>
+        <div class="section-pills">
+          <span class="status-pill pill-approved">Approved</span>
+          <span class="status-pill pill-pending">Pending</span>
+          <span class="status-pill pill-rejected">Rejected</span>
+        </div>
+      </div>
+      <div class="admin-user-toolbar">
+        <div class="search-field">
+          <span>🔍</span>
+          <input type="text" id="userSearch" placeholder="Search name or email">
+        </div>
+      </div>
+      <div id="platformAdmin" class="platform-admin-wrap"></div>
+      <div class="admin-user-groups-cards">
+        <div class="user-status-card" id="approvedCard" data-status="approved">
+          <div class="user-status-icon">✓</div>
+          <div class="user-status-content">
+            <h3>Approved</h3>
+            <p class="user-status-desc">Verified users with full access</p>
+            <span class="user-status-count" id="approvedCount">0</span>
+          </div>
+          <div class="admin-card-arrow">→</div>
+        </div>
+        <div class="user-status-card" id="pendingCard" data-status="pending">
+          <div class="user-status-icon">⏳</div>
+          <div class="user-status-content">
+            <h3>Pending</h3>
+            <p class="user-status-desc">Awaiting admin approval</p>
+            <span class="user-status-count" id="pendingCount">0</span>
+          </div>
+          <div class="admin-card-arrow">→</div>
+        </div>
+        <div class="user-status-card" id="rejectedCard" data-status="rejected">
+          <div class="user-status-icon">✗</div>
+          <div class="user-status-content">
+            <h3>Rejected</h3>
+            <p class="user-status-desc">Declined or suspended accounts</p>
+            <span class="user-status-count" id="rejectedCount">0</span>
+          </div>
+          <div class="admin-card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Status Modals -->
+  <div id="approvedUsersModal" class="modal" style="display:none;">
+    <div class="modal-content admin-content-modal">
+      <span id="approvedUsersModalClose" class="modal-close">&times;</span>
+      <div class="admin-modal-header">
+        <div>
+          <p class="eyebrow-text">Approved Users</p>
+          <h2>Verified Community Members</h2>
+          <p class="section-meta">Users with full access to the platform.</p>
+        </div>
+        <div class="section-pills">
+          <span class="status-pill pill-approved">Total: <strong id="approvedCountModal">0</strong></span>
+        </div>
+      </div>
+      <div class="admin-user-toolbar">
+        <div class="search-field">
+          <span>🔍</span>
+          <input type="text" id="approvedUserSearch" placeholder="Search name or email">
+        </div>
+      </div>
+      <div id="approvedUsers" class="admin-card-grid admin-user-grid"></div>
+    </div>
+  </div>
+
+  <div id="pendingUsersModal" class="modal" style="display:none;">
+    <div class="modal-content admin-content-modal">
+      <span id="pendingUsersModalClose" class="modal-close">&times;</span>
+      <div class="admin-modal-header">
+        <div>
+          <p class="eyebrow-text">Pending Users</p>
+          <h2>Awaiting Approval</h2>
+          <p class="section-meta">Review and approve new user registrations.</p>
+        </div>
+        <div class="section-pills">
+          <span class="status-pill pill-pending">Total: <strong id="pendingCountModal">0</strong></span>
+        </div>
+      </div>
+      <div class="admin-user-toolbar">
+        <div class="search-field">
+          <span>🔍</span>
+          <input type="text" id="pendingUserSearch" placeholder="Search name or email">
+        </div>
+      </div>
+      <div id="pendingUsers" class="admin-card-grid admin-user-grid"></div>
+    </div>
+  </div>
+
+  <div id="rejectedUsersModal" class="modal" style="display:none;">
+    <div class="modal-content admin-content-modal">
+      <span id="rejectedUsersModalClose" class="modal-close">&times;</span>
+      <div class="admin-modal-header">
+        <div>
+          <p class="eyebrow-text">Rejected Users</p>
+          <h2>Declined Accounts</h2>
+          <p class="section-meta">Users who have been declined or suspended.</p>
+        </div>
+        <div class="section-pills">
+          <span class="status-pill pill-rejected">Total: <strong id="rejectedCountModal">0</strong></span>
+        </div>
+      </div>
+      <div class="admin-user-toolbar">
+        <div class="search-field">
+          <span>🔍</span>
+          <input type="text" id="rejectedUserSearch" placeholder="Search name or email">
+        </div>
+      </div>
+      <div id="rejectedUsers" class="admin-card-grid admin-user-grid"></div>
+    </div>
+  </div>
+
+  <!-- View User Modal -->
+  <div id="viewUserModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="viewUserClose" class="modal-close">&times;</span>
+      <h3>User Profile</h3>
+      <div id="viewUserBody"></div>
+      <div class="modal-actions">
+        <button class="btn" id="viewUserOk">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div id="editUserModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="editUserClose" class="modal-close">&times;</span>
+      <h3>Edit User</h3>
+      <input type="text" id="editUserName" placeholder="Full Name" style="width:100%;margin:8px 0;">
+      <input type="email" id="editUserEmail" placeholder="Email" style="width:100%;margin:8px 0;">
+      <input type="password" id="editUserPassword" placeholder="New Password (optional)"
+        style="width:100%;margin:8px 0;">
+      <label style="display:block;margin:8px 0;">Role
+        <select id="editUserRole" style="width:100%;margin-top:6px;">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </label>
+      <div class="modal-actions">
+        <button class="btn" id="editUserCancel">Cancel</button>
+        <button class="btn" id="editUserSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Posts Modal -->
+  <div id="userPostsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="userPostsClose" class="modal-close">&times;</span>
+      <h3>User Posts</h3>
+      <div id="userPostsBody" class="grid"></div>
+      <div class="modal-actions">
+        <button class="btn" id="userPostsOk">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="notificationContainer"></div>
+
+  <div id="routeEditor" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="editRouteClose" class="modal-close">&times;</span>
+      <h3>Edit Route</h3>
+      <form id="editRouteForm">
+        <input type="hidden" id="editRouteId">
+        <input type="text" id="editRouteName" placeholder="Route Name" required>
+        <select id="editRouteType" required>
+          <option value="">Select Route Type</option>
+          <option value="Road">Road</option>
+          <option value="XC">XC</option>
+          <option value="Trail">Trail</option>
+          <option value="City Loop">City Loop</option>
+          <option value="Leisure">Leisure</option>
+        </select>
+        <input type="text" id="editRouteStart" placeholder="Start Location" required>
+        <input type="text" id="editRouteEnd" placeholder="End Location" required>
+        <input type="text" id="editRouteDistance" placeholder="Estimated Distance (e.g., 25 km)" required>
+        <input type="text" id="editRouteTime" placeholder="Estimated Time (e.g., 1h 45m)" required>
+        <textarea id="editRouteDescription" placeholder="Short description" rows="3" required></textarea>
+        <textarea id="editRouteMapLink" placeholder="Google Maps embed snippet (optional)" rows="3"></textarea>
+        <label>Replace Route Photo (optional)
+          <input type="file" id="editRoutePhoto" accept="image/*">
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="editRouteCancel">Cancel</button>
+          <button type="submit" class="btn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

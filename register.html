@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | CYCHRIS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="auth-page">
+  <div class="auth-grid">
+    <div class="auth-brand-panel">
+      <h1>CYCHRIS</h1>
+      <p>Join a curated network of cyclists, renters, and bike owners. Every account is reviewed to keep the marketplace authentic and safe.</p>
+      <div class="auth-highlights">
+        <div class="auth-highlight-item">
+          <span>✅</span>
+          <div>
+            <h4>Verified riders</h4>
+            <p>Admins approve each profile after reviewing your info.</p>
+          </div>
+        </div>
+        <div class="auth-highlight-item">
+          <span>🤝</span>
+          <div>
+            <h4>Community trust</h4>
+            <p>Clear responsibilities create smooth rentals for everyone.</p>
+          </div>
+        </div>
+        <div class="auth-highlight-item">
+          <span>📣</span>
+          <div>
+            <h4>Post & rent bikes</h4>
+            <p>Access listings, publish your own rides, and chat instantly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <h2>Create your account</h2>
+      <p class="auth-subtitle">Agree to the platform terms, then share your details for admin review.</p>
+
+      <div id="termsCard" class="terms-card">
+        <h3>Terms of Agreement</h3>
+        <div class="terms-content">
+          <p><strong>User Responsibilities</strong><br>Provide accurate information, keep your account secure, and use posted bikes responsibly.</p>
+          <p><strong>Owner Responsibilities</strong><br>Ensure bikes are safe, disclose issues, and coordinate fairly with renters.</p>
+          <p><strong>Platform Disclaimers</strong><br>CYCHRIS only facilitates listings. Damages, accidents, and payments are between owners and renters.</p>
+          <p><strong>Privacy Rules</strong><br>Your information is used for verification and coordination only. Sharing other users’ data is prohibited.</p>
+          <p><strong>Penalties</strong><br>Accounts may be suspended or rejected for fraud, harassment, unsafe behavior, or violating these terms.</p>
+        </div>
+        <button class="btn" id="agreeTermsBtn">I Agree</button>
+      </div>
+
+      <form id="registerForm" style="display:none;">
+        <div class="auth-form-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Your complete name" required>
+          <span class="field-error" id="nameError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></span>
+        </div>
+        <div class="auth-form-group">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" placeholder="09XX XXX XXXX" required>
+          <span class="field-error" id="phoneError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></span>
+        </div>
+        <div class="auth-form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" placeholder="Street, City, Province" required>
+        </div>
+        <div class="auth-form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Choose a unique username" required>
+          <span class="field-error" id="usernameError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></span>
+        </div>
+        <div class="auth-form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="name@email.com" required>
+          <span class="field-error" id="emailError" style="display:none;color:#ef4444;font-size:0.875rem;margin-top:0.25rem;"></span>
+        </div>
+        <div class="auth-form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Create a secure password" required>
+        </div>
+        <div class="auth-form-group">
+          <label for="profilePhoto">Profile photo (optional)</label>
+          <input type="file" id="profilePhoto" accept="image/*">
+        </div>
+        <button type="submit" class="btn">Submit for Review</button>
+        <div class="auth-divider"></div>
+        <p class="auth-meta">Already have an account? <a href="login.html">Log in</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Registration Confirmation Modal -->
+  <div id="registrationConfirmModal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width:500px;">
+      <div style="text-align:center;padding:1rem;">
+        <div style="font-size:4rem;margin-bottom:1rem;">⏳</div>
+        <h2 style="margin:0 0 0.75rem 0;color:var(--text-main);">Account Submitted for Review</h2>
+        <p style="color:var(--text-muted);margin:0 0 1.5rem 0;line-height:1.6;">
+          Your registration has been received successfully. Your account is now <strong>pending admin approval</strong>.
+          <br><br>
+          Please wait for an admin to review and approve your account before you can log in. You will be notified once your account is approved.
+        </p>
+        <button type="button" class="btn" id="registrationConfirmOk" style="min-width:150px;">OK, I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="notificationContainer"></div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bikes | CYCHRIS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="img/logo.png" alt="CYCHRIS"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <h1 style="display:none;margin:0;">CYCHRIS</h1>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="bikes.html" class="active">Bikes</a>
+        <a href="routes.html">Routes</a>
+        <a href="profile.html" id="profileLink" style="display:none;">Profile</a>
+        <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="#" id="logoutLink" style="display:none;">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="bikes-page container">
+    <div class="bikes-header">
+      <h2>Available Bikes</h2>
+      <p class="bikes-subtitle">Discover your perfect ride from trusted local owners</p>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="bikes-filters">
+      <div class="filters-grid" id="searchFilterGrid">
+        <div class="filter-field">
+          <label for="bikeSearch" class="filter-label">🔍 Search Bikes</label>
+          <input type="text" id="bikeSearch" class="filter-input" placeholder="Search by name, description, location...">
+        </div>
+        <div class="filter-field">
+          <label for="bikeCategoryFilter" class="filter-label">📂 Filter by Category</label>
+          <select id="bikeCategoryFilter" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="Mountain Bike (MTB)">Mountain Bike (MTB)</option>
+            <option value="Road Bike">Road Bike</option>
+            <option value="Hybrid Bike">Hybrid Bike</option>
+            <option value="Foldable Bike">Foldable Bike</option>
+            <option value="BMX">BMX</option>
+            <option value="Gravel Bike">Gravel Bike</option>
+            <option value="Kids Bike">Kids Bike</option>
+            <option value="E-Bike">E-Bike</option>
+            <option value="Fixie">Fixie</option>
+            <option value="Ladies Bike">Ladies Bike</option>
+          </select>
+        </div>
+      </div>
+      <div id="filterResults" class="filter-results">
+        <span id="resultCount" class="result-count"></span>
+        <button id="clearFilters" class="clear-filters-btn">Clear Filters</button>
+      </div>
+    </div>
+
+    <div id="bikeList" class="bikes-grid"></div>
+    <div id="noResults" class="bikes-empty-state">
+      <div class="empty-icon">🔍</div>
+      <p class="empty-title">No bikes found</p>
+      <p class="empty-message">Try adjusting your search or filter criteria</p>
+    </div>
+  </section>
+
+  <!-- View Bike Modal -->
+  <div id="viewBikeModal" class="modal" style="display:none;">
+    <div class="modal-content view-bike-modal">
+      <span id="viewBikeClose" class="modal-close">&times;</span>
+      <div id="viewBikeContent" class="view-bike-content">
+      </div>
+    </div>
+  </div>
+
+  <!-- Rent Modal -->
+  <div id="rentModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="rentClose" class="modal-close">&times;</span>
+      <h3 id="rentName"></h3>
+      <p id="rentDesc"></p>
+      <p><strong>Location:</strong> <span id="rentLocation"></span></p>
+      <p><strong>Rate:</strong> ₱<span id="rentRate"></span>/hour</p>
+      <label style="display:block;margin-top:10px;">Number of hours
+        <input type="number" id="rentHours" min="1" value="1" style="width:100%;margin-top:6px;">
+      </label>
+      <p id="rentTotal" style="margin-top:10px;"><strong>Total:</strong> ₱0</p>
+      <div class="modal-actions">
+        <button class="btn" id="rentCancel">Cancel</button>
+        <button class="btn" id="rentSubmit">Send Rent Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Viewer Modal -->
+  <div id="imageViewerModal" class="modal" style="display:none;">
+    <div class="modal-content" style="max-width:90%;max-height:90vh;padding:0;">
+      <span id="imageViewerClose" class="modal-close"
+        style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.5);color:white;padding:5px 10px;border-radius:50%;">&times;</span>
+      <img id="viewerImage" src="" alt="Bike Image"
+        style="width:100%;height:auto;max-height:90vh;object-fit:contain;border-radius:10px;">
+    </div>
+  </div>
+
+  <div id="notificationContainer"></div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>

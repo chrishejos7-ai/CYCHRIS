@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routes | CYCHRIS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="img/logo.png" alt="CYCHRIS"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <h1 style="display:none;margin:0;">CYCHRIS</h1>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="bikes.html">Bikes</a>
+        <a href="routes.html" class="active">Routes</a>
+        <a href="profile.html" id="profileLink" style="display:none;">Profile</a>
+        <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="#" id="logoutLink" style="display:none;">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="routes-page container">
+    <div class="routes-header">
+      <h2>Verified Cycling Routes</h2>
+      <p class="routes-subtitle">Explore hand-picked routes curated by CYCHRIS admins</p>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="routes-filters">
+      <div class="filters-grid" id="routesFilterGrid">
+        <div class="filter-field">
+          <label for="routeSearch" class="filter-label">🔍 Search Routes</label>
+          <input type="text" id="routeSearch" class="filter-input" placeholder="Search by name, description, or location...">
+        </div>
+        <div class="filter-field">
+          <label for="routeTypeFilter" class="filter-label">📂 Filter by Type</label>
+          <select id="routeTypeFilter" class="filter-select">
+            <option value="">All Categories</option>
+            <option value="Road">Road</option>
+            <option value="XC">XC</option>
+            <option value="Trail">Trail</option>
+            <option value="City Loop">City Loop</option>
+            <option value="Leisure">Leisure</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="routeList" class="routes-grid"></div>
+    <div id="noRoutes" class="routes-empty-state">
+      <div class="empty-icon">🚧</div>
+      <p class="empty-title">No routes found</p>
+      <p class="empty-message">No routes have been published yet. Check back soon!</p>
+    </div>
+  </section>
+
+  <div id="routeModal" class="modal" style="display:none;">
+    <div class="modal-content route-modal-content">
+      <span id="routeModalClose" class="modal-close">&times;</span>
+      <div id="routeModalBody"></div>
+    </div>
+  </div>
+
+  <div id="notificationContainer"></div>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
+

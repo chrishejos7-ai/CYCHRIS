@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Bike | CYCHRIS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="img/logo.png" alt="CYCHRIS"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <h1 style="display:none;margin:0;">CYCHRIS</h1>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="bikes.html">Bikes</a>
+        <a href="routes.html">Routes</a>
+        <a href="admin.html" id="adminLink" style="display:none;">Admin</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="#" id="logoutLink" style="display:none;">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="auth-container">
+    <h2>Post Your Bike for Rent</h2>
+    <form id="postBikeForm">
+      <input type="text" id="bikeName" placeholder="Bike Name" required>
+      <select id="bikeCategory" required>
+        <option value="">Select Category</option>
+        <option value="Mountain Bike (MTB)">Mountain Bike (MTB)</option>
+        <option value="Road Bike">Road Bike</option>
+        <option value="Hybrid Bike">Hybrid Bike</option>
+        <option value="Foldable Bike">Foldable Bike</option>
+        <option value="BMX">BMX</option>
+        <option value="Gravel Bike">Gravel Bike</option>
+        <option value="Kids Bike">Kids Bike</option>
+        <option value="E-Bike">E-Bike</option>
+        <option value="Fixie">Fixie</option>
+        <option value="Ladies Bike">Ladies Bike</option>
+      </select>
+      <textarea id="bikeDescription" placeholder="Description" style="height:90px;" required></textarea>
+      <input type="number" id="bikeRate" placeholder="Hourly Rate (₱/hour)" required>
+      <label>
+        Upload Images (Multiple images allowed)
+        <input type="file" id="bikeImages" accept="image/*" multiple>
+        <small style="color:var(--text-muted);display:block;margin-top:5px;">You can select multiple images at
+          once</small>
+      </label>
+      <div id="imagePreview" style="display:none;margin:10px 0;padding:10px;"></div>
+      <input type="text" id="bikeLocation" placeholder="Location" required>
+      <label>
+        <input type="checkbox" id="bikeAvailable" checked style="width:auto;margin-right:10px;">
+        Availability
+      </label>
+      <button type="submit" class="btn" style="width:100%;margin-top:10px;">Post Bike</button>
+    </form>
+  </section>
+
+  <div id="notificationContainer"></div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
